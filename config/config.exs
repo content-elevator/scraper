@@ -13,7 +13,8 @@ config :scraper, ScraperWeb.Endpoint,
   secret_key_base: "DHNQKveDdNuwtK333LyiwTvBdF3GPFG7woHM88DCFXU90xU3UBm8wtbFMkzcnIpN",
   render_errors: [view: ScraperWeb.ErrorView, accepts: ~w(json)],
   pubsub: [name: Scraper.PubSub, adapter: Phoenix.PubSub.PG2],
-  live_view: [signing_salt: "SR4iGdGp"]
+  live_view: [signing_salt: "SR4iGdGp"],
+  analysis_server: "url"
 
 # Configures Elixir's Logger
 config :logger, :console,

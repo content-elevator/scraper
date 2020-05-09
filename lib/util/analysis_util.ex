@@ -7,7 +7,7 @@ defmodule Scraper.AnalysisUtil do
       %{
         status: status
       }
-    HTTPoison.patch("serverUrl", body, headers)
+    HTTPoison.patch(Application.get_env(:scraper, :analysis_server)<>"jobStatus", body, headers)
   end
 
   def send_result(url_content, google_search_result, token) do
@@ -17,7 +17,7 @@ defmodule Scraper.AnalysisUtil do
         url_content: url_content,
         google_search_result: google_search_result
       }
-    HTTPoison.post("server_url", body, headers)
+    HTTPoison.post(Application.get_env(:scraper, :analysis_server)<>"result", body, headers)
   end
 
 end
