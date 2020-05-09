@@ -6,11 +6,13 @@ defmodule Scraper.PageScraper do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
         content =
           body
+          |> Floki.find("p")
           |> Floki.text()
 
-        {:ok, content}
-      {:ok, %HTTPoison.Response{status_code: 404}} -> IO.puts "Page not found"
+        content
+      {:ok, %HTTPoison.Response{status_code: 404}} -> IO.puts "Page not found URL:" <> url
       {:error, %HTTPoison.Error{reason: reason}} -> IO.inspect reason
+      _ -> IO.puts "Can't scrape this page URL:" <> url
     end
   end
 end
