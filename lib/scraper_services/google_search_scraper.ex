@@ -1,6 +1,5 @@
 defmodule Scraper.GoogleSearchScraper do
   @moduledoc false
-  alias Scraper.PageScraper
 
   def get_urls_from_search(query) do
     case HTTPoison.get("https://www.google.com/search?q="<>query) do
