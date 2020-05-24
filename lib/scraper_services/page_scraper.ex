@@ -8,7 +8,7 @@ defmodule Scraper.PageScraper do
           body
           |> Floki.find("p")
           |> Floki.text()
-
+        IO.puts "returning scraped content"
         content
       {:ok, %HTTPoison.Response{status_code: 404}} -> IO.puts "Page not found URL:" <> url
       {:error, %HTTPoison.Error{reason: reason}} -> IO.inspect reason

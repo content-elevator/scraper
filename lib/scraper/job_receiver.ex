@@ -6,12 +6,12 @@ defmodule Scraper.Consumer do
     GenServer.start_link(__MODULE__, [], [])
   end
 
-  @exchange    "gen_server_test_exchange"
-  @queue       "gen_server_test_queue"
-  @queue_error "#{@queue}_error"
+  #@exchange    "gen_server_test_exchange"
+  @queue       "hello2"
+  #@queue_error "#{@queue}_error"
 
   def init(_opts) do
-    {:ok, conn} = Connection.open("amqp://guest:guest@localhost")
+    {:ok, conn} = Connection.open("amqp://zdblkbpl:LdADoprUeh9MViM85YcwsuIKYRhU6DJs@eagle.rmq.cloudamqp.com/zdblkbpl")
     {:ok, chan} = Channel.open(conn)
     setup_queue(chan)
 
@@ -44,19 +44,15 @@ defmodule Scraper.Consumer do
   end
 
   defp setup_queue(chan) do
-    {:ok, _} = Queue.declare(chan, @queue_error, durable: true)
+    #{:ok, _} = Queue.declare(chan, @queue_error, durable: true)
     # Messages that cannot be delivered to any consumer in the main queue will be routed to the error queue
     {:ok, _} = Queue.declare(
       chan,
       @queue,
-      durable: true,
-      arguments: [
-        {"x-dead-letter-exchange", :longstr, ""},
-        {"x-dead-letter-routing-key", :longstr, @queue_error}
-      ]
+      durable: true
     )
-    :ok = Exchange.fanout(chan, @exchange, durable: true)
-    :ok = Queue.bind(chan, @queue, @exchange)
+    #:ok = Exchange.fanout(chan, @exchange, durable: true)
+    #:ok = Queue.bind(chan, @queue, @exchange)
   end
 
   defp consume(channel, tag, redelivered, payload) do
@@ -68,7 +64,10 @@ defmodule Scraper.Consumer do
     IO.puts "job id: #{job["job_id"]}"
     IO.puts "url: #{job["url"]}"
     IO.puts "query: #{job["query"]}"
-    Scraper.JobHandler.handle_scraper_job(job["url"], job["query"], job["job_id"])
+#    :ok = Basic.ack channel, tag
+#    :timer.sleep(:timer.seconds(20))
+    result = Scraper.JobHandler.handle_scraper_job(job["url"], job["query"], job["job_id"])
+    IO.puts "job finished"
     #    else
     #      :ok = Basic.reject channel, tag, requeue: false
     #      IO.puts "#{number} is too big and was rejected."
@@ -83,8 +82,8 @@ defmodule Scraper.Consumer do
     # Make sure you call ack, nack or reject otherwise comsumer will stop
     # receiving messages.
     exception ->
-      :ok = Basic.reject channel, tag, requeue: not redelivered
-      IO.puts "Error converting #{payload} to integer"
+#      :ok = Basic.reject channel, tag, requeue: not redelivered
+      IO.puts "Internal Error in scraping module"
   end
 
 end
