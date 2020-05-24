@@ -50,7 +50,7 @@ jobs:
       - checkout
       - run: echo y | sudo pip install gigalixir
       - run: echo Y | gigalixir login --email "daniftincaalexandru+giga3@gmail.com" --password "gigalixir1234"
-      - run: git remote add gigalixir https://git.gigalixir.com/elixir-user-management.git
+      - run: git remote add gigalixir https://git.gigalixir.com/content-scraper.git/
       - run: git push gigalixir master
       - run: gigalixir ps
       - run: gigalixir run mix ecto.migrate
