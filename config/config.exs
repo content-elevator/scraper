@@ -24,6 +24,10 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :new_relic_agent,
+  app_name: "Scraper Elixir App",
+  license_key: "eu01xxa31792eae8c04ac5416a05c87a1d9eNRAL"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
