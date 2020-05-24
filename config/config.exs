@@ -14,7 +14,7 @@ config :scraper, ScraperWeb.Endpoint,
   render_errors: [view: ScraperWeb.ErrorView, accepts: ~w(json)],
   pubsub: [name: Scraper.PubSub, adapter: Phoenix.PubSub.PG2],
   live_view: [signing_salt: "SR4iGdGp"],
-  analysis_server: "url"
+  analysis_server: "https://analysis-service.herokuapp.com/"
 
 # Configures Elixir's Logger
 config :logger, :console,
