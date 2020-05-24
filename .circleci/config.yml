@@ -1,0 +1,56 @@
+# Elixir CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-elixir/ for more details
+version: 2.1
+
+workflows: # Define a Workflow running the build job, then the deploy job
+  version: 2
+  build-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
+
+jobs:
+  build:
+    docker:
+      # specify the version here
+      - image: circleci/elixir:1.10.3
+      - image: circleci/postgres:9.6.2-alpine
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/postgres:9.4
+
+    working_directory: ~/repo
+    steps:
+      - checkout
+
+      # specify any bash command here prefixed with run:
+      - run: mix local.hex --force  # install Hex locally (without prompt)
+      - run: mix local.rebar --force  # fetch a copy of rebar (without prompt)
+
+      - run: mix deps.get
+      - run: mix do deps.get, compile
+        #- run: mix ecto.create
+      - run: mix do run
+      - run: mix test
+
+  deploy:
+    docker:
+      - image: circleci/python:3.6.4
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - run: echo y | sudo pip install gigalixir
+      - run: echo Y | gigalixir login --email "daniftincaalexandru@gmail.com" --password "gigalixir1234"
+      - run: git remote add gigalixir https://git.gigalixir.com/elixir-user-management.git
+      - run: git push gigalixir master
+      - run: gigalixir ps
+      - run: gigalixir run mix ecto.migrate
