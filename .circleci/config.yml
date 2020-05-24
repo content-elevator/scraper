@@ -49,7 +49,7 @@ jobs:
     steps:
       - checkout
       - run: echo y | sudo pip install gigalixir
-      - run: echo Y | gigalixir login --email "daniftincaalexandru@gmail.com" --password "gigalixir1234"
+      - run: echo Y | gigalixir login --email "daniftincaalexandru+giga3@gmail.com" --password "gigalixir1234"
       - run: git remote add gigalixir https://git.gigalixir.com/elixir-user-management.git
       - run: git push gigalixir master
       - run: gigalixir ps
