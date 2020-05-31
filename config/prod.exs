@@ -54,9 +54,12 @@ config :logger, level: :info
 # and configuration from environment variables.
 import_config "prod.secret.exs"
 
-config :"content-scraper-app", ScraperWeb.Endpoint,
+config :"scraper", ScraperWeb.Endpoint,
        http: [port: {:system, "PORT"}], # Possibly not needed, but doesn't hurt
        url: [host: System.get_env("APP_NAME") <> ".gigalixirapp.com", port: 80],
        secret_key_base: Map.fetch!(System.get_env(), "SECRET_KEY_BASE"),
        server: true
 
+config :new_relic_agent,
+       app_name: "Scraper Elixir App",
+       license_key: "eu01xxa31792eae8c04ac5416a05c87a1d9eNRAL"
