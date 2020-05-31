@@ -18,7 +18,7 @@ defmodule Scraper.JobHandler do
     Scraper.GoogleSearchScraper.get_urls_from_search(query, job_id)
     Scraper.AnalysisUtil.send_partial_result("empty", "empty", job_id, jwt_token, true, false)
 
-    IO.puts "scraping completed."
+    IO.puts "scraping completed"
 
   end
 
