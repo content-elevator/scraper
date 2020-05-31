@@ -3,7 +3,7 @@ defmodule Scraper.AnalysisUtil do
 
   def send_status(status, job_id, jwt_token) do
     IO.puts "sending status"
-    headers = ["Authorization": "Bearer #{jwt_token}", "Accept": "Application/json; Charset=utf-8"]
+    headers = ["Authorization": "Bearer #{jwt_token}", "Content-Type": "Application/json; Charset=utf-8"]
     # headers = [{:"Content-Type", "application/json"}]
     body = Jason.encode!(
       %{
@@ -15,7 +15,7 @@ defmodule Scraper.AnalysisUtil do
 
   def send_partial_result(content, title, job_id, jwt_token, is_last_google_article, is_user_article) do
     IO.puts "sending partial result"
-    headers = ["Authorization": "Bearer #{jwt_token}", "Accept": "Application/json; Charset=utf-8"]
+    headers = ["Authorization": "Bearer #{jwt_token}", "Content-Type": "Application/json; Charset=utf-8"]
     # headers = [{:"Content-Type", "application/json"}]
     body = Jason.encode!(
       %{
