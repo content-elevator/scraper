@@ -19,7 +19,7 @@ defmodule Scraper.MixProject do
   def application do
     [
       mod: {Scraper.Application, []},
-      extra_applications: [:logger, :runtime_tools, :amqp]
+      extra_applications: [:lager, :logger, :runtime_tools, :amqp]
     ]
   end
 
