@@ -19,7 +19,7 @@ defmodule Scraper.MixProject do
   def application do
     [
       mod: {Scraper.Application, []},
-      extra_applications: [:logger, :runtime_tools, :amqp]
+      extra_applications: [:lager, :logger, :runtime_tools, :amqp]
     ]
   end
 
@@ -39,7 +39,7 @@ defmodule Scraper.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:httpoison, "~> 1.4"},
       {:floki, "~> 0.20.0"},
-      {:amqp, "~> 1.0"}
+      {:amqp, "~> 1.0"},
       {:new_relic_agent, "~> 1.0"}
     ]
   end
