@@ -82,7 +82,7 @@ defmodule Scraper.Consumer do
     # Make sure you call ack, nack or reject otherwise consumer will stop
     # receiving messages.
     exception ->
-      :ok = Basic.reject channel, tag
+      :ok = Basic.reject channel, tag, requeue: not redelivered
       IO.puts "Internal Error in scraping module"
   end
 
