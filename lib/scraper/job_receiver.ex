@@ -66,7 +66,7 @@ defmodule Scraper.Consumer do
     IO.puts "query: #{job["query"]}"
 #    :ok = Basic.ack channel, tag
 #    :timer.sleep(:timer.seconds(20))
-    result = Scraper.JobHandler.handle_scraper_job(job["url"], job["query"], job["job_id"])
+    result = Scraper.JobHandler.handle_scraper_job(job["url"], job["query"], job["job_id"], job["jwt_token"])
     IO.puts "job finished"
     #    else
     #      :ok = Basic.reject channel, tag, requeue: false
