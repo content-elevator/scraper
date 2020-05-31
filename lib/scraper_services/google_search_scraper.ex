@@ -1,7 +1,7 @@
 defmodule Scraper.GoogleSearchScraper do
   @moduledoc false
 
-  def get_urls_from_search(query, job_id) do
+  def get_urls_from_search(query, job_id, jwt_token) do
     IO.puts "starting google search scraping"
     good_query = String.replace(query, " ", "+")
     IO.puts good_query
@@ -18,7 +18,7 @@ defmodule Scraper.GoogleSearchScraper do
         |> Enum.map(fn (x) -> URI.decode(x) end)
         |> Enum.map(fn (x) -> Scraper.PageScraper.scrape_page(x) end)
         |> Enum.map(
-             fn (x) -> Scraper.AnalysisUtil.send_partial_result(x, "title", job_id, false, false) end
+             fn (x) -> Scraper.AnalysisUtil.send_partial_result(x, "title", job_id, jwt_token, false, false) end
            )
 
       {:ok, %HTTPoison.Response{status_code: 404}} -> IO.puts "Page not found"

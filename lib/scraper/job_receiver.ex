@@ -64,6 +64,7 @@ defmodule Scraper.Consumer do
     IO.puts "job id: #{job["job_id"]}"
     IO.puts "url: #{job["url"]}"
     IO.puts "query: #{job["query"]}"
+    IO.puts "query: #{job["jwt_token"]}"
 #    :ok = Basic.ack channel, tag
 #    :timer.sleep(:timer.seconds(20))
     result = Scraper.JobHandler.handle_scraper_job(job["url"], job["query"], job["job_id"], job["jwt_token"])
