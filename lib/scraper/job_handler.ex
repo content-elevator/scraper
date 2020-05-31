@@ -15,7 +15,7 @@ defmodule Scraper.JobHandler do
     # send GOOGLE_SCRAPING_STARTED, status for analyzer
     Scraper.AnalysisUtil.send_status("GOOGLE_SCRAPING_STARTED", job_id, jwt_token)
     IO.puts "status url scraping completed sent"
-    Scraper.GoogleSearchScraper.get_urls_from_search(query, job_id, jwt_token)
+    Scraper.GoogleSearchScraper.get_urls_from_search(query, job_id)
     Scraper.AnalysisUtil.send_partial_result("empty", "empty", job_id, jwt_token, true, false)
 
     IO.puts "scraping completed."
