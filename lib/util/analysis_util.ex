@@ -26,7 +26,7 @@ defmodule Scraper.AnalysisUtil do
         "is_user_article"=> is_user_article
       })
     HTTPoison.post(Application.get_env(:scraper, ScraperWeb.Endpoint)[:analysis_server] <> "scraping/", body, headers)
-    IO.puts "partial result sent"
+    IO.puts "partial result sent."
   end
 
 end
