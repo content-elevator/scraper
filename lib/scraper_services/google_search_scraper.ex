@@ -5,7 +5,7 @@ defmodule Scraper.GoogleSearchScraper do
     IO.puts "starting google search scraping"
     good_query = String.replace(query, " ", "+")
     IO.puts good_query
-    case HTTPoison.get("https://www.google.com/search?q=" <> good_query) do
+    case HTTPoison.get("https://www.google.com/search?q="<>good_query) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
         body
         |> Floki.find("a")
