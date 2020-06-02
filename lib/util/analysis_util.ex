@@ -10,7 +10,12 @@ defmodule Scraper.AnalysisUtil do
         "job_status" => status
       }
     )
-    HTTPoison.patch(Application.get_env(:scraper, ScraperWeb.Endpoint)[:analysis_server]<>"jobs/#{job_id}/", body, headers)
+    HTTPoison.patch(
+      Application.get_env(:scraper, ScraperWeb.Endpoint)[:analysis_server] <> "jobs/#{job_id}/",
+      body,
+      headers
+    )
+    IO.puts "Status sent. Response Code:"<>status;
   end
 
   def send_partial_result(content, title, job_id, jwt_token, is_last_google_article, is_user_article) do
@@ -19,14 +24,20 @@ defmodule Scraper.AnalysisUtil do
     # headers = [{:"Content-Type", "application/json"}]
     body = Jason.encode!(
       %{
-        "analysis_instance"=> job_id,
-        "title"=> title,
-        "content"=> content,
-        "is_last_google_article"=> is_last_google_article,
-        "is_user_article"=> is_user_article
-      })
-    HTTPoison.post(Application.get_env(:scraper, ScraperWeb.Endpoint)[:analysis_server] <> "scraping/", body, headers)
-    IO.puts "partial result sent."
+        "analysis_instance" => job_id,
+        "title" => title,
+        "content" => content,
+        "is_last_google_article" => is_last_google_article,
+        "is_user_article" => is_user_article
+      }
+    )
+    IO.puts "body is encoded"
+    %HTTPoison.Response{status: status, body: body} = HTTPoison.post(
+      Application.get_env(:scraper, ScraperWeb.Endpoint)[:analysis_server] <> "scraping/",
+      body,
+      headers
+    )
+    IO.puts "partial result sent. Response Code:"<>status;
   end
 
 end
