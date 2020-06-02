@@ -11,7 +11,7 @@ defmodule Scraper.PageScraper do
         IO.puts "returning scraped content"
         content
       {:ok, %HTTPoison.Response{status_code: 404}} -> IO.puts "Page not found URL:" <> url
-      {:error, %HTTPoison.Error{reason: reason}} -> IO.inspect reason
+      {:error, %HTTPoison.Error{reason: reason}} -> "empty"
       _ -> IO.puts "Can't scrape this page URL:" <> url
     end
   end

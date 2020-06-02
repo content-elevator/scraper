@@ -15,7 +15,7 @@ defmodule Scraper.AnalysisUtil do
       body,
       headers
     )
-    IO.puts "Status sent. Response Code:"<>status;
+    IO.puts "Status sent."
   end
 
   def send_partial_result(content, title, job_id, jwt_token, is_last_google_article, is_user_article) do
@@ -31,13 +31,13 @@ defmodule Scraper.AnalysisUtil do
         "is_user_article" => is_user_article
       }
     )
-    IO.puts "body is encoded"
-    %HTTPoison.Response{status: status, body: body} = HTTPoison.post(
+    IO.puts "body:" <> body
+    HTTPoison.post(
       Application.get_env(:scraper, ScraperWeb.Endpoint)[:analysis_server] <> "scraping/",
       body,
       headers
     )
-    IO.puts "partial result sent. Response Code:"<>status;
+    IO.puts "partial result sent.";
   end
-
 end
+

@@ -43,6 +43,10 @@ defmodule Scraper.Consumer do
     {:noreply, chan}
   end
 
+  def handle_info({:ssl_closed, _}, state) do
+    {:noreply, state}
+  end
+
   defp setup_queue(chan) do
     #{:ok, _} = Queue.declare(chan, @queue_error, durable: true)
     # Messages that cannot be delivered to any consumer in the main queue will be routed to the error queue
