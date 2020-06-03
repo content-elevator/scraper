@@ -31,7 +31,6 @@ defmodule Scraper.AnalysisUtil do
         "is_user_article" => is_user_article
       }
     )
-    IO.puts "body:" <> body
     HTTPoison.post(
       Application.get_env(:scraper, ScraperWeb.Endpoint)[:analysis_server] <> "scraping/",
       body,
