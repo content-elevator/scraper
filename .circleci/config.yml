@@ -3,11 +3,15 @@
 # Check https://circleci.com/docs/2.0/language-elixir/ for more details
 version: 2.1
 
+orbs:
+  sonarcloud: sonarsource/sonarcloud@1.0.1
+
 workflows: # Define a Workflow running the build job, then the deploy job
   version: 2
   build-deploy:
     jobs:
-      - build
+      - build:
+          context: SonarCloud
       - deploy:
           requires:
             - build
@@ -39,6 +43,7 @@ jobs:
         #- run: mix ecto.create
       - run: mix do run
       - run: mix test
+      - sonarcloud/scan
 
   deploy:
     docker:
