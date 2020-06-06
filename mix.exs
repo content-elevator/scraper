@@ -40,7 +40,10 @@ defmodule Scraper.MixProject do
       {:httpoison, "~> 1.4"},
       {:floki, "~> 0.20.0"},
       {:amqp, "~> 1.0"},
-      {:new_relic_agent, "~> 1.0"}
+      {:new_relic_agent, "~> 1.0"},
+      {:poison, "~> 3.1"},
+      {:connection, "~> 1.0"},
+      {:blocking_queue, "~> 1.3"}
     ]
   end
 end
