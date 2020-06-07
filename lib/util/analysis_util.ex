@@ -1,8 +1,9 @@
 defmodule Scraper.AnalysisUtil do
+  require Phoenix.Logger
   @moduledoc false
 
   def send_status(status, job_id, jwt_token) do
-    IO.puts "sending status"
+    Logger.info "sending status"
     headers = ["Authorization": "Bearer #{jwt_token}", "Content-Type": "Application/json"]
     # headers = [{:"Content-Type", "application/json"}]
     body = Jason.encode!(
@@ -15,11 +16,11 @@ defmodule Scraper.AnalysisUtil do
       body,
       headers
     )
-    IO.puts "Status sent."
+    Logger.info "Status sent."
   end
 
   def send_partial_result(content, title, job_id, jwt_token, is_last_google_article, is_user_article) do
-    IO.puts "sending partial result"
+    Logger.info "sending partial result"
     headers = ["Authorization": "Bearer #{jwt_token}", "Content-Type": "Application/json"]
     # headers = [{:"Content-Type", "application/json"}]
     body = Jason.encode!(
@@ -36,7 +37,7 @@ defmodule Scraper.AnalysisUtil do
       body,
       headers
     )
-    IO.puts "partial result sent.";
+    Logger.info "partial result sent.";
   end
 end
 

@@ -1,10 +1,10 @@
 defmodule Scraper.GoogleSearchScraper do
+  require Phoenix.Logger
   @moduledoc false
 
   def get_urls_from_search(query, job_id, jwt_token) do
-    IO.puts "starting google search scraping"
+    Logger.info "starting google search scraping"
     good_query = String.replace(query, " ", "+")
-    IO.puts good_query
     case HTTPoison.get("https://www.google.com/search?q=" <> good_query) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
         body
@@ -21,8 +21,8 @@ defmodule Scraper.GoogleSearchScraper do
              fn (x) -> Scraper.AnalysisUtil.send_partial_result(x, "title", job_id, jwt_token, false, false) end
            )
 
-      {:ok, %HTTPoison.Response{status_code: 404}} -> IO.puts "Page not found"
-      {:error, %HTTPoison.Error{reason: reason}} -> IO.inspect reason
+      {:ok, %HTTPoison.Response{status_code: 404}} -> Logger.error "Page not found"
+      {:error, %HTTPoison.Error{reason: reason}} -> Logger.error reason
     end
   end
 

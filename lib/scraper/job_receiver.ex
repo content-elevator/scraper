@@ -1,6 +1,7 @@
 defmodule Scraper.Consumer do
   use GenServer
   use AMQP
+  require Phoenix.Logger
 
   def start_link(_otps) do
     GenServer.start_link(__MODULE__, [], [])
@@ -65,14 +66,11 @@ defmodule Scraper.Consumer do
     job = Jason.decode!(payload)
     #    if number <= 10 do
     :ok = Basic.ack channel, tag
-    IO.puts "job id: #{job["job_id"]}"
-    IO.puts "url: #{job["url"]}"
-    IO.puts "query: #{job["query"]}"
-    IO.puts "query: #{job["jwt_token"]}"
+    Logger.info "Starting job with id: #{job["job_id"]}, parameters: url: #{job["url"]}, query: #{job["query"]}"
 #    :ok = Basic.ack channel, tag
 #    :timer.sleep(:timer.seconds(20))
     result = Scraper.JobHandler.handle_scraper_job(job["url"], job["query"], job["job_id"], job["jwt_token"])
-    IO.puts "job finished"
+    Logger.info "Job with id: #{job["job_id"]} finished"
     #    else
     #      :ok = Basic.reject channel, tag, requeue: false
     #      IO.puts "#{number} is too big and was rejected."
@@ -88,7 +86,7 @@ defmodule Scraper.Consumer do
     # receiving messages.
     exception ->
       :ok = Basic.reject channel, tag, requeue: not redelivered
-      IO.puts "Internal Error in scraping module"
+      Logger.error "Internal Error in scraping module"
   end
 
 end

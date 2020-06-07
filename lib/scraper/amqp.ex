@@ -13,6 +13,7 @@ defmodule Scraper.AMQP do
   def init(_) do
     send(self(), :connect)
     {:ok, nil}
+
   end
 
   def get_connection do

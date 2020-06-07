@@ -1,4 +1,5 @@
 defmodule Scraper.PageScraper do
+  require Phoenix.Logger
   @moduledoc false
 
   def scrape_page(url) do
@@ -10,9 +11,9 @@ defmodule Scraper.PageScraper do
           |> Floki.text()
         IO.puts "returning scraped content"
         content
-      {:ok, %HTTPoison.Response{status_code: 404}} -> IO.puts "Page not found URL:" <> url
+      {:ok, %HTTPoison.Response{status_code: 404}} -> Logger.error "Page not found URL:" <> url
       {:error, %HTTPoison.Error{reason: reason}} -> "empty"
-      _ -> IO.puts "Can't scrape this page URL:" <> url
+      _ -> Logger.error "Can't scrape this page URL:" <> url
     end
   end
 end
