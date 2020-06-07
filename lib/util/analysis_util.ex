@@ -3,7 +3,7 @@ defmodule Scraper.AnalysisUtil do
   @moduledoc false
 
   def send_status(status, job_id, jwt_token) do
-    Logger.info "sending status"
+    Logger.info "Sending status: #{status} for job with id: #{job_id}"
     headers = ["Authorization": "Bearer #{jwt_token}", "Content-Type": "Application/json"]
     # headers = [{:"Content-Type", "application/json"}]
     body = Jason.encode!(
@@ -20,7 +20,7 @@ defmodule Scraper.AnalysisUtil do
   end
 
   def send_partial_result(content, title, job_id, jwt_token, is_last_google_article, is_user_article) do
-    Logger.info "sending partial result"
+    Logger.info "Sending partial result for job with id: #{job_id}"
     headers = ["Authorization": "Bearer #{jwt_token}", "Content-Type": "Application/json"]
     # headers = [{:"Content-Type", "application/json"}]
     body = Jason.encode!(
