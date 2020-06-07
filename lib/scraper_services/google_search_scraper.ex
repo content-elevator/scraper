@@ -1,5 +1,5 @@
 defmodule Scraper.GoogleSearchScraper do
-  require Phoenix.Logger
+  require Logger
   @moduledoc false
 
   def get_urls_from_search(query, job_id, jwt_token) do

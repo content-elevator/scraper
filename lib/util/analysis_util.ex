@@ -1,5 +1,5 @@
 defmodule Scraper.AnalysisUtil do
-  require Phoenix.Logger
+  require Logger
   @moduledoc false
 
   def send_status(status, job_id, jwt_token) do

@@ -1,5 +1,5 @@
 defmodule Scraper.JobHandler do
-  require Phoenix.Logger
+  require Logger
   @moduledoc false
 
   def handle_scraper_job(url, query, job_id, jwt_token) do

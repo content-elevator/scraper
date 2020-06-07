@@ -1,7 +1,7 @@
 defmodule Scraper.Consumer do
   use GenServer
   use AMQP
-  require Phoenix.Logger
+  require Logger
 
   def start_link(_otps) do
     GenServer.start_link(__MODULE__, [], [])

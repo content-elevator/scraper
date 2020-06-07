@@ -1,5 +1,5 @@
 defmodule Scraper.PageScraper do
-  require Phoenix.Logger
+  require Logger
   @moduledoc false
 
   def scrape_page(url) do
